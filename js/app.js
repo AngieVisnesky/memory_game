@@ -1,7 +1,14 @@
-/*
- * Create a list that holds all of your cards
- */
+// Cards are shown by default. This function removes the classes and hides them
 
+function hideCards() {
+    let cardList = document.getElementsByClassName("card");
+    for (let i = 0; i < cardList.length; i++) {
+        cardList[i].classList.remove("open");
+        cardList[i].classList.remove("show");
+    }
+}
+
+document.getElementById("refresh").addEventListener("click", hideCards);
 
 /*
  * Display the cards on the page
