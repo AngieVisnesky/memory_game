@@ -50,8 +50,39 @@ function buildDeck(array) {
     }
 }
 
-/*
- * set up the event listener for a card. If a card is clicked:
+// set up the event listener for a card. If a card is clicked:
+
+document.getElementById("update").addEventListener("click", evaluateMatch);
+
+function showCard(event) {
+    let target = event.target; // where was the click?
+
+    if (!(target.className = 'card')) {
+    } else {
+        target.className = ('card open show'); // display the card
+    }
+    return target;
+}
+
+function isThereTwo(target) {
+    let click = target.elementChild.className;
+    let clickArray = ["$[click]"];
+
+}
+
+function matchPair(clickArray) {
+    if ((clickArray[0]) !== (clickArray[1])) {
+        alert("Bummer. Not a match.");
+    } else alert("You have a match!");
+}
+
+function evaluateMatch(event) {
+    showCard(event);
+    isThereTwo(target);
+    matchPair(clickArray);
+}
+
+ /*
  *  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
