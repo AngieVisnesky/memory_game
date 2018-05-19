@@ -6,6 +6,7 @@ function hideCards() {
         cardList[i].classList.remove("open");
         cardList[i].classList.remove("show");
     }
+    shuffle(deck);git brach
 }
 
 document.getElementById("refresh").addEventListener("click", hideCards);
@@ -18,8 +19,15 @@ document.getElementById("refresh").addEventListener("click", hideCards);
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
+
+const deck = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o",
+                "fa fa-anchor", "fa fa-anchor", "fa fa-bolt","fa fa-bolt",
+                "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf",
+                 "fa fa-bicycle","fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"];
+
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -29,7 +37,7 @@ function shuffle(array) {
         array[randomIndex] = temporaryValue;
     }
 
-    return array;
+    console.log(array);
 }
 
 
