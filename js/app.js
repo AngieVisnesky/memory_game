@@ -6,7 +6,8 @@ function hideCards() {
         cardList[i].classList.remove("open");
         cardList[i].classList.remove("show");
     }
-    shuffle(deck);git brach
+    let newDeck = shuffle(deck);
+    buildDeck(newDeck);
 }
 
 document.getElementById("refresh").addEventListener("click", hideCards);
@@ -20,7 +21,7 @@ document.getElementById("refresh").addEventListener("click", hideCards);
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 
-const deck = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o",
+let deck = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o",
                 "fa fa-anchor", "fa fa-anchor", "fa fa-bolt","fa fa-bolt",
                 "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf",
                  "fa fa-bicycle","fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"];
@@ -37,9 +38,17 @@ function shuffle(array) {
         array[randomIndex] = temporaryValue;
     }
 
-    console.log(array);
+    return array;
 }
 
+function buildDeck(array) {
+// get all li from deck ul
+    let newImage = document.getElementsByClassName('card');
+// iterate through html collection and change classname
+    for (let i = 0; i < newImage.length; i++) {
+        newImage[i].children[0].className = array[i];
+    }
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
