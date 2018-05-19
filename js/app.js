@@ -1,7 +1,16 @@
-/*
- * Create a list that holds all of your cards
- */
+// Cards are shown by default. This function removes the classes and hides them
 
+function hideCards() {
+    let cardList = document.getElementsByClassName("card");
+    for (let i = 0; i < cardList.length; i++) {
+        cardList[i].classList.remove("open");
+        cardList[i].classList.remove("show");
+    }
+    let newDeck = shuffle(deck);
+    buildDeck(newDeck);
+}
+
+document.getElementById("refresh").addEventListener("click", hideCards);
 
 /*
  * Display the cards on the page
@@ -11,8 +20,15 @@
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
+
+let deck = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o",
+                "fa fa-anchor", "fa fa-anchor", "fa fa-bolt","fa fa-bolt",
+                "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf",
+                 "fa fa-bicycle","fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"];
+
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -25,6 +41,14 @@ function shuffle(array) {
     return array;
 }
 
+function buildDeck(array) {
+// get all li from deck ul
+    let newImage = document.getElementsByClassName('card');
+// iterate through html collection and change classname
+    for (let i = 0; i < newImage.length; i++) {
+        newImage[i].children[0].className = array[i];
+    }
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
