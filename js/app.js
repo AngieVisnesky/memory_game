@@ -1,4 +1,25 @@
-// Cards are shown by default. This function removes the classes and hides them
+const deck = [
+    "fa fa-diamond",
+    "fa fa-diamond",
+    "fa fa-paper-plane-o",
+    "fa fa-paper-plane-o",
+    "fa fa-anchor",
+    "fa fa-anchor",
+    "fa fa-bolt",
+    "fa fa-bolt",
+    "fa fa-cube",
+    "fa fa-cube",
+    "fa fa-leaf",
+    "fa fa-leaf",
+    "fa fa-bicycle",
+    "fa fa-bicycle",
+    "fa fa-bomb",
+    "fa fa-bomb"];
+let clickArray = [];
+let moves = ' ';
+
+
+
 
 function hideCards() {
     let cardList = document.getElementsByClassName("card");
@@ -21,10 +42,7 @@ document.getElementById("refresh").addEventListener("click", hideCards);
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 
-let deck = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o",
-                "fa fa-anchor", "fa fa-anchor", "fa fa-bolt","fa fa-bolt",
-                "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf",
-                 "fa fa-bicycle","fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"];
+
 
 function shuffle(array) {
 
@@ -65,21 +83,25 @@ function showCard(event) {
 }
 
 function isThereTwo(target) {
-    let click = target.elementChild.className;
-    let clickArray = ["$[click]"];
+    let click = target.firstElementChild.className;
 
+    clickArray.push(click);
 }
 
 function matchPair(clickArray) {
+    console.log(clickArray);
     if ((clickArray[0]) !== (clickArray[1])) {
         alert("Bummer. Not a match.");
     } else alert("You have a match!");
+
 }
 
 function evaluateMatch(event) {
-    showCard(event);
+    let target = showCard(event);
     isThereTwo(target);
-    matchPair(clickArray);
+    if (clickArray.length == 2) {
+        matchPair(clickArray)
+    };
 }
 
  /*
