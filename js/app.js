@@ -16,6 +16,7 @@ const deck = [
     "fa fa-bomb",
     "fa fa-bomb"];
 let clickArray = [];
+let matchedPairs = [];
 let moves = ' ';
 
 
@@ -72,6 +73,7 @@ function buildDeck(array) {
 
 document.getElementById("update").addEventListener("click", evaluateMatch);
 
+// show the cards
 function showCard(event) {
     let target = event.target; // where was the click?
 
@@ -82,20 +84,41 @@ function showCard(event) {
     return target;
 }
 
+// pushes the two cards to an array
 function isThereTwo(target) {
     let click = target.firstElementChild.className;
 
     clickArray.push(click);
 }
 
+//evaluates for the match
 function matchPair(clickArray) {
-    console.log(clickArray);
     if ((clickArray[0]) !== (clickArray[1])) {
         alert("Bummer. Not a match.");
-    } else alert("You have a match!");
-
+    } else {
+        alert("You have a match!");
+    }
 }
 
+//pushes matched pair into new array and locks
+function matched(clickArray) {
+    let firstCard = clickArray.unshift;
+    matchedPairs.push(firstCard);
+    let secondCard = clickArray.unshift;
+    matchedPairs.push.secondCard;
+}
+
+
+//removes unmatched pair from array
+function notMatched(clickArray) {
+//turn cards over
+
+    clickArray.pop();
+    clickArray.pop();
+}
+
+
+//master function
 function evaluateMatch(event) {
     let target = showCard(event);
     isThereTwo(target);
