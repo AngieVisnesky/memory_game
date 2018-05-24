@@ -1,4 +1,26 @@
-// Cards are shown by default. This function removes the classes and hides them
+let deck = [
+    "fa fa-diamond",
+    "fa fa-diamond",
+    "fa fa-paper-plane-o",
+    "fa fa-paper-plane-o",
+    "fa fa-anchor",
+    "fa fa-anchor",
+    "fa fa-bolt",
+    "fa fa-bolt",
+    "fa fa-cube",
+    "fa fa-cube",
+    "fa fa-leaf",
+    "fa fa-leaf",
+    "fa fa-bicycle",
+    "fa fa-bicycle",
+    "fa fa-bomb",
+    "fa fa-bomb"];
+let clickArray = [];
+let matchedPairs = [];
+let moves = ' ';
+
+
+
 
 function hideCards() {
     let cardList = document.getElementsByClassName("card");
@@ -21,10 +43,7 @@ document.getElementById("refresh").addEventListener("click", hideCards);
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 
-let deck = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o",
-                "fa fa-anchor", "fa fa-anchor", "fa fa-bolt","fa fa-bolt",
-                "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf",
-                 "fa fa-bicycle","fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"];
+
 
 function shuffle(array) {
 
@@ -50,8 +69,70 @@ function buildDeck(array) {
     }
 }
 
-/*
- * set up the event listener for a card. If a card is clicked:
+// set up the event listener for a card. If a card is clicked:
+
+document.getElementById("update").addEventListener("click", evaluateMatch);
+
+// show the cards
+function showCard(event) {
+    let target = event.target; // where was the click?
+
+    if (!(target.className = 'card')) {
+    } else {
+        target.className = ('card open show'); // display the card
+    }
+    return target;
+}
+
+// pushes the two cards to an array
+function isThereTwo(target) {
+    let click = target.firstElementChild.className;
+
+    clickArray.push(click);
+}
+
+//evaluates for the match
+function matchPair(clickArray) {
+    if ((clickArray[0]) !== (clickArray[1])) {
+        alert("Bummer. Not a match.");
+        notMatched(clickArray);
+    } else {
+        alert("You have a match!");
+        matched(clickArray);
+    }
+}
+
+//pushes matched pair into new array and locks
+function matched(clickArray) {
+    let firstCard = clickArray.unshift;
+    matchedPairs.push(firstCard);
+    let secondCard = clickArray.unshift;
+    matchedPairs.push(secondCard);
+}
+
+
+//removes unmatched pair from array
+function notMatched(clickArray, deck) {
+//turn cards over
+    for (let i = 0; i < deck.length; i++){
+        if(deck[i] === clickArray[-1]){
+            deck[i].className = ('card');
+            clickArray.pop();
+        }
+    }
+}
+
+
+//master function
+function evaluateMatch(event) {
+    let target = showCard(event);
+    isThereTwo(target);
+    if (clickArray.length === 2) {
+        matchPair(clickArray);
+    }
+}
+
+ /*
  *  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
