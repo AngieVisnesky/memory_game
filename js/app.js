@@ -17,19 +17,35 @@ let deck = [
     "fa fa-bomb"];
 let clickArray = [];
 let matchedPairs = [];
+
 let moves = ' ';
 
+//creates deck dynamically on thee screen
+
+function createDeck (array) {
+    let deckLayout = document.getElementById('deckLayout');
+
+    for (let i = 0; i < array.length; i++ ) {
+        let cardBox = document.createElement('li');
+        cardBox.className = 'card open show';
+        deckLayout.appendChild(cardBox);
+        let cardImage = document.createElement('i');
+        cardImage.className = array[i];
+        cardBox.appendChild(cardImage);
+    }
+}
+
+createDeck(deck);
 
 
-
+//removes open ans show classes to hide the cards
 function hideCards() {
     let cardList = document.getElementsByClassName("card");
     for (let i = 0; i < cardList.length; i++) {
         cardList[i].classList.remove("open");
         cardList[i].classList.remove("show");
     }
-    let newDeck = shuffle(deck);
-    buildDeck(newDeck);
+
 }
 
 document.getElementById("refresh").addEventListener("click", hideCards);
@@ -67,11 +83,12 @@ function buildDeck(array) {
     for (let i = 0; i < newImage.length; i++) {
         newImage[i].children[0].className = array[i];
     }
+    return array;
 }
 
 // set up the event listener for a card. If a card is clicked:
 
-document.getElementById("update").addEventListener("click", evaluateMatch);
+document.getElementById("deckLayout").addEventListener("click", evaluateMatch);
 
 // show the cards
 function showCard(event) {
@@ -112,11 +129,11 @@ function matched(clickArray) {
 
 
 //removes unmatched pair from array
-function notMatched(clickArray, deck) {
+function notMatched(clickArray, newDeck) {
 //turn cards over
-    for (let i = 0; i < deck.length; i++){
-        if(deck[i] === clickArray[-1]){
-            deck[i].className = ('card');
+    for (let i = 0; i < newDeck.length; i++){
+        if(newDeck[i] === clickArray[-1]){
+            newDeck[i].className = ('card');
             clickArray.pop();
         }
     }
@@ -125,6 +142,8 @@ function notMatched(clickArray, deck) {
 
 //master function
 function evaluateMatch(event) {
+   let newDeck = shuffle(deck);
+    buildDeck(newDeck);
     let target = showCard(event);
     isThereTwo(target);
     if (clickArray.length === 2) {
