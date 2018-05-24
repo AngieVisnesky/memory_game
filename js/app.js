@@ -1,4 +1,4 @@
-const deck = [
+let deck = [
     "fa fa-diamond",
     "fa fa-diamond",
     "fa fa-paper-plane-o",
@@ -95,8 +95,10 @@ function isThereTwo(target) {
 function matchPair(clickArray) {
     if ((clickArray[0]) !== (clickArray[1])) {
         alert("Bummer. Not a match.");
+        notMatched(clickArray);
     } else {
         alert("You have a match!");
+        matched(clickArray);
     }
 }
 
@@ -105,16 +107,19 @@ function matched(clickArray) {
     let firstCard = clickArray.unshift;
     matchedPairs.push(firstCard);
     let secondCard = clickArray.unshift;
-    matchedPairs.push.secondCard;
+    matchedPairs.push(secondCard);
 }
 
 
 //removes unmatched pair from array
-function notMatched(clickArray) {
+function notMatched(clickArray, deck) {
 //turn cards over
-
-    clickArray.pop();
-    clickArray.pop();
+    for (let i = 0; i < deck.length; i++){
+        if(deck[i] === clickArray[-1]){
+            deck[i].className = ('card');
+            clickArray.pop();
+        }
+    }
 }
 
 
@@ -122,9 +127,9 @@ function notMatched(clickArray) {
 function evaluateMatch(event) {
     let target = showCard(event);
     isThereTwo(target);
-    if (clickArray.length == 2) {
-        matchPair(clickArray)
-    };
+    if (clickArray.length === 2) {
+        matchPair(clickArray);
+    }
 }
 
  /*
