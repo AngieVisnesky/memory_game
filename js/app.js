@@ -20,8 +20,6 @@ let initialDeck = [
 // variable for choosing two cards to evaluate a match
 let clickArray = [];
 
-let matchedPairs = [];
-
 // variable for a shuffled deck array for a new game
 let shuffledDeck = [];
 
@@ -45,6 +43,19 @@ function createDeck (array) {
 
 createDeck(initialDeck);
 
+// function that: hides cards, builds deck, adds event listeners to cards
+function newGame() {
+    hideAllCards();
+    shuffledDeck = shuffle(initialDeck);
+    buildDeck(shuffledDeck);
+
+    // set up the event listener for a card. If a card is clicked:
+    document.getElementById("deckLayout").addEventListener("click", evaluateMatch);
+}
+
+// Set event listener for new game
+document.getElementById("refresh").addEventListener("click", newGame);
+
 
 //removes open and show classes to hide the cards when starting a new game
 function hideAllCards() {
@@ -53,18 +64,6 @@ function hideAllCards() {
         cardList[i].classList.remove("open", "show");
     }
 }
-
-// function that: hides cards, builds deck, adds event listeners to cards
-function newGame() {
-    hideAllCards();
-    let shuffledDeck = shuffle(initialDeck);
-    buildDeck(shuffledDeck);
-
-    // set up the event listener for a card. If a card is clicked:
-    document.getElementById("deckLayout").addEventListener("click", evaluateMatch);
-}
-
-document.getElementById("refresh").addEventListener("click", newGame);
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -145,13 +144,14 @@ function hideNotMatched() {
 }
 
 
-//master function
+//evaluates number of cards
 function evaluateMatch(event) {
-    // if event target does not have the class 'mathced'
-    let target = showCard(event);
-    isThereTwo(target);
-    if (clickArray.length === 2) {
-        doCardsMatch();
+    if ( !event.target.hasClass('matched') ) {
+        let target = showCard(event);
+        isThereTwo(target);
+        if (clickArray.length === 2) {
+            doCardsMatch();
+        }
     }
 }
 
