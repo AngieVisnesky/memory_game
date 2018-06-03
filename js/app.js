@@ -24,7 +24,7 @@ let clickArray = [];
 let shuffledDeck = [];
 
 // variable for counting number of moves
-let moves = ' ';
+let moves = 0;
 
 
 // creates initial deck dynamically on the screen
@@ -48,6 +48,8 @@ function newGame() {
     hideAllCards();
     shuffledDeck = shuffle(initialDeck);
     buildDeck(shuffledDeck);
+    //reset counter
+    incrementMoves('reset');
 
     // set up the event listener for a card. If a card is clicked:
     document.getElementById("deckLayout").addEventListener("click", evaluateMatch);
@@ -100,6 +102,15 @@ function showCard(event) {
     return target;
 }
 
+function incrementMoves(word) {
+    if (word === 'move') {
+        moves++;
+    }else if(word === 'reset') {
+        moves = 0;
+    }
+    document.getElementsByClassName('moves')[0].innerHTML = moves;
+}
+
 // pushes the turned cards to an array
 function isThereTwo(target) {
     let click = target.firstElementChild.className;
@@ -122,7 +133,7 @@ function doCardsMatch () {
 }
 
 //locks a matched pair
-function lockMatched(a) {
+function lockMatched() {
     // select elements with the 'open' class name - set to variable
     let openCards = document.getElementsByClassName('open');
 
@@ -150,6 +161,8 @@ function evaluateMatch(event) {
     //if block to make sure that code only runs if card is not shown or matched
     if ( event.target.className === 'card' ) {
         let target = showCard(event);
+        // add moves to counter
+        incrementMoves('move');
         isThereTwo(target);
         if (clickArray.length === 2) {
             doCardsMatch();
@@ -158,7 +171,7 @@ function evaluateMatch(event) {
 }
 
 function gameOver() {
-    let matchedCards = document.getElementsByClassName('match')
+    let matchedCards = document.getElementsByClassName('match');
     if (matchedCards.length === 16) {
         alert ("Game Over");
     }
