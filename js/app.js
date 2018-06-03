@@ -61,7 +61,7 @@ document.getElementById("refresh").addEventListener("click", newGame);
 function hideAllCards() {
     let cardList = document.getElementsByClassName("card");
     for (let i = 0; i < cardList.length; i++) {
-        cardList[i].classList.remove("open", "show");
+        cardList[i].classList.remove("open", "show", "match");
     }
 }
 
@@ -115,6 +115,7 @@ function doCardsMatch () {
     } else {
         alert("You have a match!");
         lockMatched();
+        gameOver();
     }
     // empty clickArray
     clickArray = [];
@@ -146,7 +147,8 @@ function hideNotMatched() {
 
 //evaluates number of cards
 function evaluateMatch(event) {
-    if ( !event.target.hasClass('matched') ) {
+    //if block to make sure that code only runs if card is not shown or matched
+    if ( event.target.className === 'card' ) {
         let target = showCard(event);
         isThereTwo(target);
         if (clickArray.length === 2) {
@@ -155,4 +157,9 @@ function evaluateMatch(event) {
     }
 }
 
-
+function gameOver() {
+    let matchedCards = document.getElementsByClassName('match')
+    if (matchedCards.length === 16) {
+        alert ("Game Over");
+    }
+}
