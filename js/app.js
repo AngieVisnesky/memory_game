@@ -1,4 +1,5 @@
-let deck = [
+// variable for master deck array
+let initialDeck = [
     "fa fa-diamond",
     "fa fa-diamond",
     "fa fa-paper-plane-o",
@@ -15,36 +16,58 @@ let deck = [
     "fa fa-bicycle",
     "fa fa-bomb",
     "fa fa-bomb"];
+
+// variable for choosing two cards to evaluate a match
 let clickArray = [];
-let matchedPairs = [];
-let moves = ' ';
+
+// variable for a shuffled deck array for a new game
+let shuffledDeck = [];
+
+// variable for counting number of moves
+let moves = 0;
 
 
+// creates initial deck dynamically on the screen
+function createDeck (array) {
+    let deckLayout = document.getElementById('deckLayout');
 
-
-function hideCards() {
-    let cardList = document.getElementsByClassName("card");
-    for (let i = 0; i < cardList.length; i++) {
-        cardList[i].classList.remove("open");
-        cardList[i].classList.remove("show");
+    for (let i = 0; i < array.length; i++ ) {
+        let cardBox = document.createElement('li');
+        cardBox.className = 'card open show';
+        deckLayout.appendChild(cardBox);
+        let cardImage = document.createElement('i');
+        cardImage.className = array[i];
+        cardBox.appendChild(cardImage);
     }
-    let newDeck = shuffle(deck);
-    buildDeck(newDeck);
 }
 
-document.getElementById("refresh").addEventListener("click", hideCards);
+createDeck(initialDeck);
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+// function that: hides cards, builds deck, adds event listeners to cards
+function newGame() {
+    hideAllCards();
+    shuffledDeck = shuffle(initialDeck);
+    buildDeck(shuffledDeck);
+    //reset counter
+    incrementMoves('reset');
+
+    // set up the event listener for a card. If a card is clicked:
+    document.getElementById("deckLayout").addEventListener("click", evaluateMatch);
+}
+
+// Set event listener for new game
+document.getElementById("refresh").addEventListener("click", newGame);
+
+
+//removes open and show classes to hide the cards when starting a new game
+function hideAllCards() {
+    let cardList = document.getElementsByClassName("card");
+    for (let i = 0; i < cardList.length; i++) {
+        cardList[i].classList.remove("open", "show", "match");
+    }
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
-
-
-
 function shuffle(array) {
 
     let currentIndex = array.length, temporaryValue, randomIndex;
@@ -67,24 +90,28 @@ function buildDeck(array) {
     for (let i = 0; i < newImage.length; i++) {
         newImage[i].children[0].className = array[i];
     }
+    return array;
 }
 
-// set up the event listener for a card. If a card is clicked:
 
-document.getElementById("update").addEventListener("click", evaluateMatch);
-
-// show the cards
+// show the cards selected
 function showCard(event) {
     let target = event.target; // where was the click?
 
-    if (!(target.className = 'card')) {
-    } else {
-        target.className = ('card open show'); // display the card
-    }
+    if ((target.className = 'card')) target.className = ('card open show');
     return target;
 }
 
-// pushes the two cards to an array
+function incrementMoves(word) {
+    if (word === 'move') {
+        moves++;
+    }else if(word === 'reset') {
+        moves = 0;
+    }
+    document.getElementsByClassName('moves')[0].innerHTML = moves;
+}
+
+// pushes the turned cards to an array
 function isThereTwo(target) {
     let click = target.firstElementChild.className;
 
@@ -92,52 +119,60 @@ function isThereTwo(target) {
 }
 
 //evaluates for the match
-function matchPair(clickArray) {
+function doCardsMatch () {
     if ((clickArray[0]) !== (clickArray[1])) {
         alert("Bummer. Not a match.");
-        notMatched(clickArray);
+        hideNotMatched();
     } else {
         alert("You have a match!");
-        matched(clickArray);
+        lockMatched();
+        gameOver();
+    }
+    // empty clickArray
+    clickArray = [];
+}
+
+//locks a matched pair
+function lockMatched() {
+    // select elements with the 'open' class name - set to variable
+    let openCards = document.getElementsByClassName('open');
+
+    // iterate over elements and change className to 'card match' to hide cards
+    for (let i = 0; i < 2; i++){
+        openCards[0].className = 'card match';
     }
 }
 
-//pushes matched pair into new array and locks
-function matched(clickArray) {
-    let firstCard = clickArray.unshift;
-    matchedPairs.push(firstCard);
-    let secondCard = clickArray.unshift;
-    matchedPairs.push(secondCard);
+
+//hides the two cards
+function hideNotMatched() {
+    // select elements with the 'open' class name - set to variable
+   let openCards = document.getElementsByClassName('open');
+
+    // iterate over elements and change className to 'card' to hide cards
+    for (let i = 0; i < 2; i++){
+        openCards[0].className = 'card';
+    }
 }
 
 
-//removes unmatched pair from array
-function notMatched(clickArray, deck) {
-//turn cards over
-    for (let i = 0; i < deck.length; i++){
-        if(deck[i] === clickArray[-1]){
-            deck[i].className = ('card');
-            clickArray.pop();
+//evaluates number of cards
+function evaluateMatch(event) {
+    //if block to make sure that code only runs if card is not shown or matched
+    if ( event.target.className === 'card' ) {
+        let target = showCard(event);
+        // add moves to counter
+        incrementMoves('move');
+        isThereTwo(target);
+        if (clickArray.length === 2) {
+            doCardsMatch();
         }
     }
 }
 
-
-//master function
-function evaluateMatch(event) {
-    let target = showCard(event);
-    isThereTwo(target);
-    if (clickArray.length === 2) {
-        matchPair(clickArray);
+function gameOver() {
+    let matchedCards = document.getElementsByClassName('match');
+    if (matchedCards.length === 16) {
+        alert ("Game Over");
     }
 }
-
- /*
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
