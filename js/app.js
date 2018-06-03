@@ -52,12 +52,19 @@ function hideAllCards() {
     for (let i = 0; i < cardList.length; i++) {
         cardList[i].classList.remove("open", "show");
     }
-    shuffledDeck = shuffle(initialDeck);
-    buildDeck(shuffledDeck);
 }
 
-// create function that: hides cards, builds deck, adds event listeners to cards
-document.getElementById("refresh").addEventListener("click", hideAllCards);
+// function that: hides cards, builds deck, adds event listeners to cards
+function newGame() {
+    hideAllCards();
+    let shuffledDeck = shuffle(initialDeck);
+    buildDeck(shuffledDeck);
+
+    // set up the event listener for a card. If a card is clicked:
+    document.getElementById("deckLayout").addEventListener("click", evaluateMatch);
+}
+
+document.getElementById("refresh").addEventListener("click", newGame);
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -85,9 +92,6 @@ function buildDeck(array) {
     return array;
 }
 
-// set up the event listener for a card. If a card is clicked:
-
-document.getElementById("deckLayout").addEventListener("click", evaluateMatch);
 
 // show the cards selected
 function showCard(event) {
