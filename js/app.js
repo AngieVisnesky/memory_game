@@ -163,6 +163,7 @@ function evaluateMatch(event) {
         let target = showCard(event);
         // add moves to counter
         incrementMoves('move');
+        starRating();
         isThereTwo(target);
         if (clickArray.length === 2) {
             doCardsMatch();
@@ -174,5 +175,13 @@ function gameOver() {
     let matchedCards = document.getElementsByClassName('match');
     if (matchedCards.length === 16) {
         alert ("Game Over");
+    }
+}
+
+function starRating() {
+
+    if (moves === 27 || moves === 33 || moves === 39 || moves === 45) {
+        let rating = document.getElementById('list');
+        rating.removeChild(rating.firstElementChild);
     }
 }
