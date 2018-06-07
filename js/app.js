@@ -50,6 +50,7 @@ function newGame() {
     buildDeck(shuffledDeck);
     //reset counter
     incrementMoves('reset');
+    markPresent();
 
     // set up the event listener for a card. If a card is clicked:
     document.getElementById("deckLayout").addEventListener("click", evaluateMatch);
@@ -171,6 +172,7 @@ function evaluateMatch(event) {
     }
 }
 
+// checks to see if all matches have been made
 function gameOver() {
     let matchedCards = document.getElementsByClassName('match');
     if (matchedCards.length === 16) {
@@ -178,10 +180,36 @@ function gameOver() {
     }
 }
 
+//subtracts stars as moves increase
 function starRating() {
 
     if (moves === 27 || moves === 33 || moves === 39 || moves === 45) {
         let rating = document.getElementById('list');
         rating.removeChild(rating.firstElementChild);
     }
+}
+
+//timing functions from https://stackoverflow.com/questions/31405996/find-elapsed-time-in-javascript
+
+function markPresent() {
+    window.markDate = new Date();
+    $(document).ready(function() {
+        $("div.absent").toggleClass("present");
+    });
+    updateClock();
+}
+
+function updateClock() {
+    var currDate = new Date();
+    var diff = currDate - markDate;
+    document.getElementById("timer").innerHTML = format(diff/1000);
+    setTimeout(function() {updateClock()}, 1000);
+}
+
+function format(seconds)
+{
+    var numminutes = parseInt(Math.floor((((seconds % 31536000) % 86400) % 3600) / 60),10);
+    var numseconds = parseInt((((seconds % 31536000) % 86400) % 3600) % 60,10);
+    return ((numminutes<10) ? "0" + numminutes : numminutes)
+        + ":" + ((numseconds<10) ? "0" + numseconds : numseconds);
 }
