@@ -26,6 +26,8 @@ let shuffledDeck = [];
 // variable for counting number of moves
 let moves = 0;
 
+let elapsedTime;
+
 
 // creates initial deck dynamically on the screen
 function createDeck (array) {
@@ -51,6 +53,7 @@ function newGame() {
     //reset counter
     incrementMoves('reset');
     markPresent();
+    uncheckBox();
 
     // set up the event listener for a card. If a card is clicked:
     document.getElementById("deckLayout").addEventListener("click", evaluateMatch);
@@ -176,7 +179,8 @@ function evaluateMatch(event) {
 function gameOver() {
     let matchedCards = document.getElementsByClassName('match');
     if (matchedCards.length === 16) {
-        alert ("Game Over");
+        clearTimeout(elapsedTime);
+        checkedBox();
     }
 }
 
@@ -200,16 +204,26 @@ function markPresent() {
 }
 
 function updateClock() {
-    var currDate = new Date();
-    var diff = currDate - markDate;
+    let currDate = new Date();
+    let diff = currDate - markDate;
     document.getElementById("timer").innerHTML = format(diff/1000);
-    setTimeout(function() {updateClock()}, 1000);
+    elapsedTime = setTimeout(function() {updateClock()}, 1000);
 }
 
 function format(seconds)
 {
-    var numminutes = parseInt(Math.floor((((seconds % 31536000) % 86400) % 3600) / 60),10);
-    var numseconds = parseInt((((seconds % 31536000) % 86400) % 3600) % 60,10);
+    let numminutes = parseInt(Math.floor((((seconds % 31536000) % 86400) % 3600) / 60),10);
+    let numseconds = parseInt((((seconds % 31536000) % 86400) % 3600) % 60,10);
     return ((numminutes<10) ? "0" + numminutes : numminutes)
         + ":" + ((numseconds<10) ? "0" + numseconds : numseconds);
+}
+
+// game-over modal functionality
+function checkedBox() {
+    document.getElementById("modal__trigger").checked = true;
+}
+
+// resets checkbox on start of new game
+function uncheckBox() {
+    document.getElementById("modal__trigger").checked = false;
 }

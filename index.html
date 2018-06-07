@@ -7,8 +7,6 @@
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 <body>
 
@@ -18,17 +16,23 @@
     </header>
 
     <section class="score-panel">
-        <ul id="list" class="stars">
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-        </ul>
+        <div class="modal">
+            <input id="modal__trigger" type="checkbox">
+            <div class="modal__overlay">
+                <div class="modal__wrap">
+                    <ul id="list" class="stars">
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                    </ul>
 
-        <span class="moves">0</span> Moves
-        <span id="timer">0</span> Elapsed Time
-
+                    <span class="moves">0</span> Moves
+                    <span id="timer">0</span> Elapsed Time
+                </div>
+            </div>
+        </div>
         <div class="restart">
             <i class="fa fa-repeat" id="refresh"></i>
         </div>
@@ -40,5 +44,6 @@
 </div>
 
 <script src="js/app.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </body>
 </html>
