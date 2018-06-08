@@ -180,6 +180,14 @@ function gameOver() {
     let matchedCards = document.getElementsByClassName('match');
     if (matchedCards.length === 16) {
         clearTimeout(elapsedTime);
+        let finishedTime = timer.innerHTML;
+        let starRating = document.querySelector(".stars").innerHTML;
+
+        document.getElementById("totalMoves").innerHTML = moves;
+        document.getElementById("rating").innerHTML = starRating;
+        document.getElementById("finishedTime").innerHTML = elapsedTime;
+        document.getElementById("playAgain").addEventListener("click", newGame);
+
         checkedBox();
     }
 }
@@ -193,7 +201,7 @@ function starRating() {
     }
 }
 
-//timing functions from https://stackoverflow.com/questions/31405996/find-elapsed-time-in-javascript
+//timing functions adapted from https://stackoverflow.com/questions/31405996/find-elapsed-time-in-javascript
 
 function markPresent() {
     window.markDate = new Date();

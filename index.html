@@ -16,25 +16,33 @@
     </header>
 
     <section class="score-panel">
+        <ul id="list" class="stars">
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+        </ul>
+
+        <span class="moves">0</span> Moves
+        <span id="timer">0</span> Elapsed Time
+        <div class="restart">
+            <i class="fa fa-repeat" id="refresh"></i>
+        </div>
+
         <div class="modal">
             <input id="modal__trigger" type="checkbox">
             <div class="modal__overlay">
                 <div class="modal__wrap">
-                    <ul id="list" class="stars">
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-
-                    <span class="moves">0</span> Moves
-                    <span id="timer">0</span> Elapsed Time
+                    <h2>Congratulations!</h2>
+                    <ul id="rating" class="stars"></ul>
+                    <span class="moves" id="totalMoves">0</span> Moves
+                    <span id="finishedTime">0</span> Elapsed Time
+                    <div class="restart">
+                        <i class="fa fa-repeat" id="playAgain"></i>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="restart">
-            <i class="fa fa-repeat" id="refresh"></i>
         </div>
     </section>
 
