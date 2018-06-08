@@ -200,16 +200,16 @@ function markPresent() {
 }
 
 function updateClock() {
-    var currDate = new Date();
-    var diff = currDate - markDate;
+    let currDate = new Date();
+    let diff = currDate - markDate;
     document.getElementById("timer").innerHTML = format(diff/1000);
     setTimeout(function() {updateClock()}, 1000);
 }
 
 function format(seconds)
 {
-    var numminutes = parseInt(Math.floor((((seconds % 31536000) % 86400) % 3600) / 60),10);
-    var numseconds = parseInt((((seconds % 31536000) % 86400) % 3600) % 60,10);
+    let numminutes = parseInt(Math.floor((((seconds % 31536000) % 86400) % 3600) / 60),10);
+    let numseconds = parseInt((((seconds % 31536000) % 86400) % 3600) % 60,10);
     return ((numminutes<10) ? "0" + numminutes : numminutes)
         + ":" + ((numseconds<10) ? "0" + numseconds : numseconds);
 }
