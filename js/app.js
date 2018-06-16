@@ -52,7 +52,9 @@ function newGame() {
     buildDeck(shuffledDeck);
     //reset counter
     incrementMoves('reset');
+    //starts timer
     markPresent();
+    //hides modal
     uncheckBox();
 
     // set up the event listener for a card. If a card is clicked:
@@ -128,7 +130,6 @@ function doCardsMatch () {
         alert("Bummer. Not a match.");
         hideNotMatched();
     } else {
-        alert("You have a match!");
         lockMatched();
         gameOver();
     }

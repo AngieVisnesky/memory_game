@@ -168,7 +168,7 @@ h1 {
 
 input {
 position: absolute;
-top: -1000px;
+top: 500px;
 }
 
 .modal__overlay {
