@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matching Game</title>
     <meta name="description" content="">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
@@ -18,20 +19,21 @@
     </header>
 
     <section class="score-panel">
-        <ul id="list" class="stars">
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-        </ul>
+       <p>
+            <ul id="list" class="stars">
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+            </ul>
+        </p>
+        <p><span class="moves">0</span> Moves</p>
+        <p><span id="timer">0</span> Elapsed Time</p>
 
-        <span class="moves">0</span> Moves
-        <span id="timer">0</span> Elapsed Time
-
-        <div class="restart">
-            <i class="fa fa-repeat" id="refresh"></i>
-        </div>
+        <p class="restart">
+            <i class="fa fa-repeat" id="refresh"><span> New Game</span></i>
+        </p>
     </section>
 
     <ul class="deck" id="deckLayout">
