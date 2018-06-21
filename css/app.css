@@ -94,7 +94,6 @@ span {
 }
 
 .score-panel .stars {
-    margin: 0;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
@@ -117,14 +116,21 @@ span {
 @media screen and (max-width: 400px) {
     .deck {
         width: 360px;
-        min-height: 680px;
     }
 }
 
 @media screen and (min-width: 401px) {
     .deck {
         width: 420px;
-        min-height: 680px;
+    }
+
+    .score-panel {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .score-panel .stars,
+    p {
+      width: 48%;
     }
 }
 
@@ -132,6 +138,16 @@ span {
 @media screen and (min-width: 601px) {
     .deck {
         width: 660px;
-        min-height: 680px;
+    }
+
+    .score-panel{
+        width: 600px;
+    }
+
+    .score-panel .stars,
+    p,
+    i {
+        width: 23%;
+        justify-content: space-between;
     }
 }
